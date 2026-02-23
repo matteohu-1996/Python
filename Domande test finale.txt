@@ -1,0 +1,43 @@
+Python: 
+
+Differenza tupla / lista
+Type inting
+Domanda su decoratore
+Cosa servono args
+Context manager
+Differenza threading e multi-processing
+A-sync
+Loop
+Ruolo del client
+Cos'è una socket
+Differenza TCP e UDP
+A cosa serve Pydantic
+Dependency injection
+Funzione di un orm
+Formato per lo scambio dati API python - API web
+Cos'è un docker
+Virtualizzazione
+
+Front-end: 
+
+Bootstrap
+Cos'è una classe
+Contenitore full-width
+Barra di navigazione adattiva
+Per applicare lo stile a button cosa si deve scrivere
+Breakpoint lg
+Allineamento verticale flexbox
+SA e SS
+Approccio Mobile first corretto
+Com'è meglio associare una label ad un input
+Box model standard
+Domande su selettori
+Qualche proprietà CSS viene usata per un certo tipo di comando
+
+SQL:
+
+SQL: DDL
+SQL: DML
+Quale comando seleziona solo i record che soddisfano una determinata condizione
+Altre funzioni di aggregazione
+Joins
