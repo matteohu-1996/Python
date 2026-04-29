@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esempio Bootstrap Card</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Stile aggiuntivo per centrare la card nella pagina */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            gap: 20px;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Regione Piemonte</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="#">Profilo</a>
+                    <a class="nav-link" href="#">Impostazioni</a>
+                    <a class="nav-link" href="#">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="card" style="width: 22rem;">
+        <div class="card-body">
+            <h5 class="card-title">Carta d'identità</h5>
+            <h6 class="card-subtitle mb-2 text-muted">ID Card: XXXXXXXXXXXX</h6>
+            <p class="card-text">
+                Name: <br>
+                Surname: <br>
+                Birthday <br>
+                Nationality: <br>
+            </p>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-dark text-white p-5">
+        <div class="row align-items-center">
+            <div class="col">
+                One of three columns
+            </div>
+            <div class="col">
+                One of three columns
+            </div>
+            <div class="col">
+                One of three columns
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

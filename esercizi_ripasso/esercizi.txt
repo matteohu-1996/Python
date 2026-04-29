@@ -1,0 +1,270 @@
+from fastapi import  FastAPI, List, Depends, Session, OrderResponse
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+import functools, asyncio
+
+
+1
+lista_spese = [
+    122.1, 145.2, 172.9,
+    92.3, 123.2, 75.2,
+    132.1, 123.2, 89.2,
+    56.3, 152.2, 164.2,
+]
+
+lista_spese[0] = 100.0
+print(f"Lista: {lista_spese[:3]}...")
+
+tuple_spese = (
+    122.1, 145.2, 172.9,
+    92.3, 123.2, 75.2,
+    132.1, 123.2, 89.2,
+    56.3, 152.2, 164.2,
+)
+try:
+    tuple_spese[0] = 100.0
+except TypeError as e:
+    print(f"Errore: {e}")
+
+Lista (Mutable): L'assegnamento lista_spese[0] = 100.0 avviene senza problemi
+Tupla (Immutable): Python blocca il tentativo di modifica sollevando un TypeError: 'tuple' object does not support item assignment
+
+
+2
+def log_calls(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        # args è una tupla contenente tutti gli argomenti posizionali
+        print(f"Chiamata a: {func.__name__}")
+        print(f"Argomenti (tupla): {args}")
+        print(f"Keyword args (dict): {kwargs}")
+        
+        return func(*args, **kwargs)
+    return wrapper
+
+# Applicazione del decoratore
+@log_calls
+def calcola_totale(a, b, sconto=0):
+    return (a + b) - sconto
+
+# Test della funzione
+risultato = calcola_totale(100, 50, sconto=10)
+print(f"Risultato finale: {risultato}")
+
+3
+async def task_a():
+    # Simula un'operazione di I/O (come il download di un file)
+    await asyncio.sleep(2)
+    return "Task A completato!"
+
+async def main():
+    # L'espressione 'await' sospende l'esecuzione di main(), 
+    # restituendo il controllo al ciclo degli eventi (event loop).
+    # Il codice riprende solo quando task_a() ha terminato il suo lavoro.
+    risultato = await task_a()
+    print(risultato)
+
+# Avvio del programma
+if __name__ == "__main__":
+    asyncio.run(main())
+
+4
+
+s = socket.socket()
+s.bind(('127.0.0.1', 5000))
+s.listen(1)
+print("Server avviato. In attesa...")
+
+conn, addr = s.accept()
+dati = conn.recv(1024).decode()
+print("Il client dice:", dati)
+
+conn.send("Messaggio ricevuto!".encode())
+conn.close()
+
+# -----------------
+
+s = socket.socket()
+s.connect(('127.0.0.1', 5000))
+
+s.send("Ciao Server!".encode())
+risposta = s.recv(1024).decode()
+print("Risposta dal server:", risposta)
+
+s.close()
+
+
+5
+
+DATABASE_URL =""
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autoflush=False, autocommit= False, bind=engine)
+
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+app = FastAPI(
+    title="DB Finto",
+    description="DB finto",
+    version="1.0"
+)
+
+@app.get("/obj", response_model=List[object])
+def get_obj(db: Session = Depends(get_db)):
+    pass
+
+6
+async def monitor_cpu(websocket):
+    try:
+        while True:
+            cpu_load = random.randint(10, 90)
+            
+            await websocket.send(f"Carico CPU: {cpu_load}%")
+            
+            await asyncio.sleep(1)
+    except websockets.ConnectionClosed:
+        print("Client disconnesso")
+
+async def main():
+    async with websockets.serve(monitor_cpu, "localhost", 8765):
+        await asyncio.future() # Esegue il server per sempre
+
+asyncio.run(main())
+
+# REST: Esempio Endpoint: GET /api/v1/monitor/cpu 
+# Il client invia una richiesta HTTP. Il server elabora, invia una risposta (es. un JSON) e chiude la connessione. Se vuoi un nuovo dato, devi rifare tutto da capo.
+# Websocket: ws://api.azienda.it/v1/realtime
+# La connessione rimane aperta. Il server può inviare dati al client in qualsiasi momento senza che il client li richieda esplicitamente.
+
+7
+
+python3 venv .venv
+source .venv/bin/activate
+python3 install -r requirements.txt
+
+
+8-18
+
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esempio Bootstrap Card</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Stile aggiuntivo per centrare la card nella pagina */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            gap: 20px;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Regione Piemonte</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="#">Profilo</a>
+                    <a class="nav-link" href="#">Impostazioni</a>
+                    <a class="nav-link" href="#">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="card" style="width: 22rem;">
+        <div class="card-body">
+            <h5 class="card-title">Carta d'identità</h5>
+            <h6 class="card-subtitle mb-2 text-muted">ID Card: XXXXXXXXXXXX</h6>
+            <p class="card-text">
+                Name: <br>
+                Surname: <br>
+                Birthday <br>
+                Nationality: <br>
+            </p>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-dark text-white p-5">
+        <div class="row align-items-center">
+            <div class="col">
+                One of three columns
+            </div>
+            <div class="col">
+                One of three columns
+            </div>
+            <div class="col">
+                One of three columns
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+19
+create table students (id: int auto-increment primary key,
+                       nome: varchar(30),
+                       cognome: varchar(30),
+                       data_nascita: date);
+
+
+20 
+insert into students(nome, cognome, data_nascita)
+values ("Aldo", "Baglio", "2004-08-25"),
+        ("Giovanni", "Storti", "2001-05-12"),
+        ("Giacomo", "Poretti", "1990-03-23");
+
+21 
+delete from students where data_nascita < "2000-01-01";
+
+22
+
+select * from tabella 
+where not attivo;
+
+select * from prodotti 
+where codice_prodotto not like 'SKU%';
+
+
+23
+select fatture, count(*) from clienti
+group by fatture
+order by count(*);
+
+
+24
+SELECT 
+    P.CODICE_PRODOTTO, 
+    P.DESCRIZIONE, 
+    D.QUANTITA, 
+    D.PREZZO_VENDITA
+FROM T020_PRODOTTI AS P
+INNER JOIN T011_DETTAGLIO_FATTURE AS D 
+    ON P.ID_PRODOTTO = D.ID_PRODOTTO;
